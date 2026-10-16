@@ -15,7 +15,7 @@ Unlisted YouTube link: <!-- paste your link here -->
 ## CI/CD
 GitHub Actions builds the solution and runs every unit test on each push. Latest green run:
 
-![Green build](ci-green-build.png)
+![Green build](Github-proof-pic-1.png)
 
 The workflow is in `.github/workflows/part2-build-and-test.yml`. It validates the repository structure (solution, API project, test project, EF migrations), restores, builds in Release mode, runs the tests and uploads the test report.
 
