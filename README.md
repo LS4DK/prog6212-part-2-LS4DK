@@ -10,7 +10,7 @@ RaceDay is an event management platform for South African road running, walking 
 Both roles can register, log in, log out, and view and update their own profile. Anyone (even when not logged in) can browse events and categories.
 
 ## Video presentation
-Unlisted YouTube link: <!-- paste your link here -->
+Unlisted YouTube link: https://youtu.be/vXUlYMWFj6M
 
 ## CI/CD
 GitHub Actions builds the solution and runs every unit test on each push. Latest green run:
@@ -122,4 +122,4 @@ To run them: open **Test → Test Explorer → Run All Tests** in Visual Studio,
 
 ## AI tool disclosure
 <!-- Edit this so it is accurate for what YOU did. -->
-I used Claude (Anthropic) throughout Part 2 as a step-by-step guide. It provided starting code and explanations for the entities, DbContext, authentication and session handling, role filter, controllers, Swagger configuration, unit tests and the CI workflow. I added the code to the project, built it, ran the tests and checked the behaviour in Swagger. <!-- Add anything you changed, chose or debugged yourself. -->
+I used Claude (Anthropic) throughout Part 2 as a step-by-step guide. It provided explanations for the entities, DbContext, authentication and session handling, role filter, controllers, Swagger configuration, unit tests and the CI workflow.<!-- Add anything you changed, chose or debugged yourself. -->
