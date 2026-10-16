@@ -9,16 +9,24 @@ namespace RaceDay.Api.Services;
 /// </summary>
 public class PasswordService
 {
-    private const int SaltSize = 16;        // 128-bit random salt
-    private const int KeySize = 32;         // 256-bit hash
-    private const int Iterations = 600_000; // deliberately slow, to make guessing expensive
+    private const int SaltSize = 16;                // 128-bit random salt
+    private const int KeySize = 32;                 // 256-bit hash
+    private const int DefaultIterations = 600_000;  // deliberately slow, to make guessing expensive
     private static readonly HashAlgorithmName Algorithm = HashAlgorithmName.SHA256;
+
+    private readonly int _iterations;
+
+    // The real API uses the default. The unit tests pass a small number so they run quickly.
+    public PasswordService(int iterations = DefaultIterations)
+    {
+        _iterations = iterations;
+    }
 
     public string Hash(string password)
     {
         var salt = RandomNumberGenerator.GetBytes(SaltSize);
-        var key = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, Algorithm, KeySize);
-        return $"{Iterations}.{Convert.ToBase64String(salt)}.{Convert.ToBase64String(key)}";
+        var key = Rfc2898DeriveBytes.Pbkdf2(password, salt, _iterations, Algorithm, KeySize);
+        return $"{_iterations}.{Convert.ToBase64String(salt)}.{Convert.ToBase64String(key)}";
     }
 
     public bool Verify(string password, string storedHash)
@@ -31,6 +39,8 @@ public class PasswordService
         {
             var salt = Convert.FromBase64String(parts[1]);
             var expected = Convert.FromBase64String(parts[2]);
+
+            // The iteration count is read from the stored hash, so old hashes keep working if the default changes
             var actual = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, Algorithm, expected.Length);
 
             // Fixed-time comparison so timing can't leak how much of the hash matched
